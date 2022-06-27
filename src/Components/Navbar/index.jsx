@@ -5,8 +5,8 @@ export default function Navbar({ page }){
     <S.Navbar>
       <S.NavbarList>
         <S.NavbarItem className={page==="home"} > Home </S.NavbarItem>
-        <S.NavbarItem className={page==="search"} > Search Students</S.NavbarItem>
-        <S.NavbarItem className={page==="chat"} > Chat Room</S.NavbarItem>
+        <S.NavbarItem className={page==="search"} > Buscar alunos</S.NavbarItem>
+        <S.NavbarItem className={page==="chat"} > Sala de conversa</S.NavbarItem>
       </S.NavbarList>
     </S.Navbar>
   );

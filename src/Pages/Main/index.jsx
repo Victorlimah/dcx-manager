@@ -7,16 +7,23 @@ export default function Main(){
   return (
     <>
       <Header />
-      <Navbar/>
+      <Navbar page=""/>
       <Content/>
     </>
   );
 
   function Content(){
     return (
-      <div>
-        oi
-      </div>
-    )
+      <S.Content>
+        <div>
+          <S.ContentTitle>Página inicial</S.ContentTitle>
+          <S.Description>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Pellentesque euismod, nisi eu consectetur consectetur, nisl nisl
+            consectetur nisl, eget consectetur nisl nisl eget nisl.
+          </S.Description>
+        </div>
+      </S.Content>
+    );
   }
 }
