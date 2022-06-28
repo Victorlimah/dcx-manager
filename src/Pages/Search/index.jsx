@@ -6,6 +6,7 @@ import Navbar from "../../Components/Navbar";
 
 export default function Search() {
 
+  const [ seaching, setSearching ] = useState(true);
   const [ centers, setCenters ] = useState([]);
   const [ courses, setCourses ] = useState([]);
   const [ inputs, setInputs ] = useState({
@@ -25,40 +26,44 @@ export default function Search() {
     <>
       <Header />
       <Navbar page="search" />
-      <Content />
+      {seaching ? <Searching /> : <SearchResults />}
+      
     </>
   );
 
-    function Content() {
+    function Searching() {
       return (
         <S.Content>
           <div>
             <S.ContentHeader>
               <S.ContentTitle>Buscar Alunos</S.ContentTitle>
-              <S.Form>
-                <S.Input
-                  type="text"
-                  autoFocus
-                  value={inputs.student}
-                  onInput={(e) => setInputs({ ...inputs, student: e.target.value })}
-                  placeholder="Digite o nome do aluno"
-                />
-
+              <S.Form onSubmit={(e) => search(e)}>  
+                <WriteName />
                 <SelectCenter />
+                <SelectCourse />
 
-                <S.Select value={inputs.course} onChange={(e) => handleCourse(e)}>
-                  <option value="">Selecione o curso</option>
-                  {courses.map((course) => (
-                    <option key={course.id} value={course.id}>
-                      {course.name}
-                    </option>
-                  ))}
-                </S.Select>
+                <S.Button type="submit">Buscar</S.Button>
               </S.Form>
             </S.ContentHeader>
           </div>
         </S.Content>
       );
+    }
+
+    function SearchResults(){
+
+    }
+
+    function search(e) {
+      e.preventDefault();
+      // setSearching(false);
+
+      const { student, course } = inputs;
+
+      axios
+        .get(`https://dcx-manager.herokuapp.com/student/${student}/${course}`)
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
     }
 
     function handleCenter(e) {
@@ -77,11 +82,38 @@ export default function Search() {
         <S.Select value={inputs.center} onChange={(e) => handleCenter(e)}>
           <option>Selecione o centro</option>
           {centers.map((center) => (
-            <option key={center.id} value={center.code}>
+            <option key={center.id} value={center.id}>
               {center.name}
             </option>
           ))}
         </S.Select>
       );
     }
+
+    function SelectCourse(){
+      return (
+        <S.Select value={inputs.course} onChange={(e) => handleCourse(e)}>
+          <option value="">Selecione o curso</option>
+          {courses.map((course) => (
+            <option key={course.id} value={course.code}>
+              {course.name}
+            </option>
+          ))}
+        </S.Select>
+      );
+    }
+
+    function WriteName(){
+      return (
+        <S.Input
+          type="text"
+          autoFocus
+          required
+          value={inputs.student}
+          onInput={(e) => setInputs({ ...inputs, student: e.target.value })}
+          placeholder="Digite o nome do aluno"
+        />
+      );
+    }
+
 }

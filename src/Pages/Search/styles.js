@@ -66,7 +66,7 @@ export const ContentHeader = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,3 +115,24 @@ export const Form = styled.div`
       }
     }
   `;
+
+  export const Button = styled.button`
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding: 0 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    
+    &:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+`;
