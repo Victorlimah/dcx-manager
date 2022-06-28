@@ -129,5 +129,9 @@ table {
 
  *{
     box-sizing: border-box;
-}
+ } 
+
+ body {
+  font-family: 'poppins', sans-serif;
+ }
 `;

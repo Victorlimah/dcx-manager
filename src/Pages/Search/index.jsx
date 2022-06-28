@@ -6,14 +6,11 @@ import Navbar from "../../Components/Navbar";
 
 export default function Search() {
 
-  const [ seaching, setSearching ] = useState(true);
   const [ centers, setCenters ] = useState([]);
   const [ courses, setCourses ] = useState([]);
-  const [ inputs, setInputs ] = useState({
-    student: "",
-    center: -1,
-    course: -1,
-  })
+  const [ students, setStudents ] = useState([]);
+  const [ seaching, setSearching ] = useState(true);
+  const [ inputs, setInputs ] = useState({ student: "", center: -1, course: -1})
 
   useEffect(() => {
     axios
@@ -51,18 +48,42 @@ export default function Search() {
     }
 
     function SearchResults(){
+      return(
+        <S.Content>
+          <div>
+            <S.ContentHeader>
+              <S.ContentTitle>Resultados</S.ContentTitle>
+            </S.ContentHeader>
+            <S.ContentBody>
+              <S.ContentTable>
+                <S.ContentTableHeader>
+                  <S.ContentTableHeaderTitle>Nome</S.ContentTableHeaderTitle>
+                  <S.ContentTableHeaderTitle>Matrícula</S.ContentTableHeaderTitle>
+                </S.ContentTableHeader>
+                <S.ContentTableBody>
+                  {students.map(({ name, register}) => (
+                    <S.ContentTableRow key={register}>
+                      <S.ContentTableRowTitle>{name}</S.ContentTableRowTitle>
+                      <S.ContentTableRowTitle>{register}</S.ContentTableRowTitle>
+                    </S.ContentTableRow>
+                  ))}
+                </S.ContentTableBody>
+              </S.ContentTable>
+            </S.ContentBody>
+          </div>
+        </S.Content>
 
+      )
     }
 
     function search(e) {
       e.preventDefault();
-      // setSearching(false);
+      setSearching(false);
 
       const { student, course } = inputs;
-
       axios
         .get(`https://dcx-manager.herokuapp.com/student/${student}/${course}`)
-        .then((res) => console.log(res.data))
+        .then((res) => setStudents(res.data))
         .catch((err) => console.log(err));
     }
 
