@@ -7,12 +7,12 @@ export default function Main(){
   return (
     <>
       <Header />
-      <Navbar page=""/>
+      <Navbar page="home"/>
       <Content/>
     </>
   );
 
-  function Content(){
+  function Content() {
     return (
       <S.Content>
         <div>
