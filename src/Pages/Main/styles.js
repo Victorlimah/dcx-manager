@@ -17,7 +17,7 @@ export const Content = styled.div`
   transition: all 0.3s ease-in-out;
   transform: translateX(0);
 
-  div{
+  div {
     display: flex;
     flex-direction: column;
     align-items: center;

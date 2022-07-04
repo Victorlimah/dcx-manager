@@ -10,16 +10,14 @@ export const Navbar = styled.nav`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: purple;
+  background: #240047;
   padding: 10px 120px;
 
-
-
-  .true{
+  .true {
     background: green;
   }
 
-  .false{
+  .false {
     background: red;
   }
 
@@ -56,6 +54,6 @@ export const NavbarItem = styled.li`
   &:hover {
     background: #fff;
     color: #000;
-    text-decoration: underline;
+    cursor: pointer;
   }
 `;

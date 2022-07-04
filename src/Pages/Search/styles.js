@@ -37,6 +37,7 @@ export const ContentTitle = styled.h1`
   letter-spacing: 1px;
   color: #000;
   margin-top: 20px;
+  margin-bottom: 20px;
 
   @media (max-width: 450px) {
     font-size: 1.8rem;
@@ -152,7 +153,7 @@ export const ContentTable = styled.table`
   align-items: center;
   justify-content: center;
   width: 70%;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-left: 120px;
 
   @media (max-width: 450px) {

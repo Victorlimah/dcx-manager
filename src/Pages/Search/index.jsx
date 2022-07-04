@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as S from "./styles";
+import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import Header from "../../Components/Header";
 import Navbar from "../../Components/Navbar";
@@ -16,7 +17,7 @@ export default function Search() {
     axios
       .get("https://dcx-manager.herokuapp.com/centers")
       .then((res) => setCenters(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => Swal.fire("Error", err.message, "error"));
   }, []);
 
   return (
@@ -78,20 +79,32 @@ export default function Search() {
 
     function search(e) {
       e.preventDefault();
-      setSearching(false);
 
+      if(inputs.student === "" || inputs.center === -1 || inputs.course === -1) {
+        Swal.fire({ title: "Preencha todos os campos", icon: "error" });
+        return;
+      }
+      
+      setSearching(false);
       const { student, course } = inputs;
       axios
-        .get(`https://dcx-manager.herokuapp.com/student/${student}/${course}`)
-        .then((res) => setStudents(res.data))
-        .catch((err) => console.log(err));
+      .get(`https://dcx-manager.herokuapp.com/student/${student}/${course}`)
+      .then((res) => {
+        if(res.data.length === 0) {
+          Swal.fire({ title: "Nenhum aluno encontrado", icon: "error" });
+          setSearching(true);
+        }
+        setStudents(res.data)
+          
+        })
+        .catch((err) => Swal.fire({ title: "Erro ao buscar alunos", icon: "error" }));
     }
 
     function handleCenter(e) {
       setInputs({ ...inputs, center: e.target.value });
       axios.get(`https://dcx-manager.herokuapp.com/courses/${e.target.value}`)
         .then((res) => setCourses(res.data))
-        .catch((err) => console.log(err));
+        .catch((err) => Swal.fire({ title: "Erro ao buscar cursos", icon: "error" }));
     }
 
     function handleCourse(e){
